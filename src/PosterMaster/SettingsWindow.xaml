@@ -1,0 +1,23 @@
+<Window x:Class="PosterMaster.SettingsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Настройки" Icon="icon.ico" Width="500" SizeToContent="Height" ResizeMode="NoResize"
+        WindowStartupLocation="CenterOwner" ShowInTaskbar="False" Background="{StaticResource WindowBrush}"
+        FontFamily="Segoe UI" FontSize="13">
+    <Border Style="{StaticResource Card}" Margin="16" Padding="16">
+        <StackPanel>
+            <TextBlock Text="Параметры раскладки и экспорта сохраняются при закрытии программы."
+                       Foreground="{StaticResource TextBrush}" TextWrapping="Wrap" Margin="0,0,0,14"/>
+            <WrapPanel Margin="0,0,0,14">
+                <Button Content="Экспортировать настройки…" Click="Export_Click"/>
+                <Button Content="Импортировать настройки…" Click="Import_Click" Margin="0"/>
+            </WrapPanel>
+            <DockPanel>
+                <Button DockPanel.Dock="Right" Style="{StaticResource AccentButton}"
+                        Content="Закрыть" IsCancel="True" Margin="10,0,0,0"/>
+                <TextBlock x:Name="ResultText" Foreground="{StaticResource MutedTextBrush}" TextWrapping="Wrap"
+                           AutomationProperties.LiveSetting="Polite"/>
+            </DockPanel>
+        </StackPanel>
+    </Border>
+</Window>
