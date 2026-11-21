@@ -66,10 +66,10 @@ public partial class MainWindow : Window
 
     private void Clear_Click(object sender, RoutedEventArgs e)
     {
-        if (_image == null || MessageBox.Show(this, "Действительно хотите закрыть текущее изображение?",
-                "Закрыть изображение", MessageBoxButton.YesNo, MessageBoxImage.Warning,
-                MessageBoxResult.No) != MessageBoxResult.Yes)
-            return;
+        if (_image == null) return;
+
+        var confirmation = new ClearImageWindow { Owner = this };
+        if (confirmation.ShowDialog() != true) return;
 
         _image = null;
         _imagePath = null;
@@ -143,20 +143,29 @@ public partial class MainWindow : Window
     private void Window_PreviewDragOver(object sender, DragEventArgs e)
     {
         if (!e.Data.GetDataPresent(DataFormats.FileDrop, autoConvert: false)) return;
-        e.Effects = GetDroppedImagePath(e.Data) != null && (e.AllowedEffects & DragDropEffects.Copy) != 0
+        bool canCopyImage = (e.AllowedEffects & DragDropEffects.Copy) != 0 && GetDroppedImagePath(e.Data) != null;
+        ImageDropHint.Visibility = canCopyImage ? Visibility.Visible : Visibility.Collapsed;
+        e.Effects = canCopyImage && IsOverImageArea(e)
             ? DragDropEffects.Copy : DragDropEffects.None;
         e.Handled = true;
     }
 
+    private void Window_PreviewDragLeave(object sender, DragEventArgs e)
+        => ImageDropHint.Visibility = Visibility.Collapsed;
+
     private void Window_PreviewDrop(object sender, DragEventArgs e)
     {
+        ImageDropHint.Visibility = Visibility.Collapsed;
         if (!e.Data.GetDataPresent(DataFormats.FileDrop, autoConvert: false)) return;
         e.Handled = true;
         e.Effects = DragDropEffects.None;
-        var path = GetDroppedImagePath(e.Data);
-        if (path != null && (e.AllowedEffects & DragDropEffects.Copy) != 0 && LoadImage(path))
+        if (IsOverImageArea(e) && (e.AllowedEffects & DragDropEffects.Copy) != 0
+            && GetDroppedImagePath(e.Data) is string path && LoadImage(path))
             e.Effects = DragDropEffects.Copy;
     }
+
+    private bool IsOverImageArea(DragEventArgs e)
+        => new Rect(ImageArea.RenderSize).Contains(e.GetPosition(ImageArea));
 
     private static string? GetDroppedImagePath(IDataObject data)
         => data.GetData(DataFormats.FileDrop, autoConvert: false) is string[] { Length: 1 } paths
@@ -270,7 +279,7 @@ public partial class MainWindow : Window
             _lastValidSettings = settings;
             if (_image == null)
             {
-                SummaryText.Text = "Откройте изображение или перетащите файл в окно.";
+                SummaryText.Text = "Откройте изображение или перетащите его в область ниже.";
                 StatusText.Text = "Готово к работе";
             }
             else

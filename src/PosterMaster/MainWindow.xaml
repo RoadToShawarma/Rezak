@@ -6,7 +6,8 @@
         MinWidth="1000" MinHeight="650" Background="{StaticResource WindowBrush}"
         FontFamily="Segoe UI" FontSize="13" WindowStartupLocation="CenterScreen"
         AllowDrop="True" PreviewDragEnter="Window_PreviewDragOver"
-        PreviewDragOver="Window_PreviewDragOver" PreviewDrop="Window_PreviewDrop">
+        PreviewDragOver="Window_PreviewDragOver" PreviewDragLeave="Window_PreviewDragLeave"
+        PreviewDrop="Window_PreviewDrop">
     <Window.Resources>
         <Style x:Key="IconButton" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
             <Setter Property="Width" Value="44"/>
@@ -278,7 +279,7 @@
                        TextWrapping="Wrap" Foreground="#1F457A" FontWeight="SemiBold"/>
         </Border>
 
-        <Grid Grid.Row="3">
+        <Grid x:Name="ImageArea" Grid.Row="3" Background="Transparent">
             <Grid x:Name="ImagePreviews" Visibility="Collapsed">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="2*"/>
@@ -329,6 +330,16 @@
                                    HorizontalAlignment="Center"/>
                     </StackPanel>
                 </Button>
+            </Border>
+            <Border x:Name="ImageDropHint" Style="{StaticResource Card}" Padding="10"
+                    Visibility="Collapsed" IsHitTestVisible="False">
+                <Grid>
+                    <Rectangle Fill="{StaticResource AccentTintBrush}" Stroke="{StaticResource AccentBrush}"
+                               StrokeThickness="2" StrokeDashArray="4 3" RadiusX="10" RadiusY="10"/>
+                    <TextBlock Text="Перетащите изображение сюда" FontSize="20" FontWeight="SemiBold"
+                               Foreground="{StaticResource TextBrush}"
+                               HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </Grid>
             </Border>
         </Grid>
 
