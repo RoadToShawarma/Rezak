@@ -370,10 +370,7 @@ public partial class MainWindow : Window
 
             string destination = Path.Combine(dialog.FolderName, folderName);
             bool replaceExisting = PngExportFolder.HasExistingExport(destination);
-            if (replaceExisting && MessageBox.Show(this,
-                    $"В папке экспорта уже есть пронумерованные PNG-фрагменты или схема сборки. Заменить эти файлы?\n\n{destination}",
-                    "Замена PNG-экспорта", MessageBoxButton.YesNo, MessageBoxImage.Warning,
-                    MessageBoxResult.No) != MessageBoxResult.Yes)
+            if (replaceExisting && new ReplacePngExportWindow(destination) { Owner = this }.ShowDialog() != true)
                 return;
 
             var (layout, source) = data.Value;
@@ -398,7 +395,8 @@ public partial class MainWindow : Window
             });
             StatusText.Text = $"Сохранено фрагментов: {count}";
             new ExportCompletedWindow("PNG сохранены",
-                "Фрагменты и схема сборки сохранены в папке:", destination) { Owner = this }.ShowDialog();
+                "Фрагменты и схема сборки сохранены в папке:", destination, folderPath: destination)
+                { Owner = this }.ShowDialog();
         }
         catch (Exception ex) { ShowError("Ошибка экспорта PNG", ex); }
     }
@@ -445,7 +443,7 @@ public partial class MainWindow : Window
             StatusText.Text = "PDF сохранён";
             new ExportCompletedWindow("PDF сохранён",
                 "Схема раскроя на первой странице.\nДля сохранения точных размеров печатайте фрагменты в масштабе 100%.",
-                path) { Owner = this }.ShowDialog();
+                path, folderPath: Path.GetDirectoryName(path)!) { Owner = this }.ShowDialog();
         }
         catch (Exception ex) { ShowError("Не удалось сохранить PDF", ex); }
     }
