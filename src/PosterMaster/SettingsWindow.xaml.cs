@@ -1,4 +1,5 @@
 using System.Windows;
+using System.Windows.Input;
 using Microsoft.Win32;
 
 namespace PosterMaster;
@@ -15,6 +16,15 @@ public partial class SettingsWindow : Window
         InitializeComponent();
         _readSettings = readSettings;
         _importSettings = importSettings;
+    }
+
+    protected override void OnKeyDown(KeyEventArgs e)
+    {
+        base.OnKeyDown(e);
+        if (e.Handled || e.Key != Key.Escape) return;
+
+        e.Handled = true;
+        Close();
     }
 
     private void Export_Click(object sender, RoutedEventArgs e)

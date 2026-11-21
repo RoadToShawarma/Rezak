@@ -107,7 +107,7 @@
         <DockPanel Grid.Row="0" Margin="0,0,0,14">
             <StackPanel DockPanel.Dock="Left" Orientation="Vertical">
                 <TextBlock Text="Резак" FontSize="30" FontWeight="Bold" Foreground="{StaticResource TextBrush}"/>
-                <TextBlock Text="Плакат точного размера из листов А4 и А3" Foreground="{StaticResource MutedTextBrush}"/>
+                <TextBlock Text="Плакат точного размера из листов А3 или А4" Foreground="{StaticResource MutedTextBrush}"/>
             </StackPanel>
             <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" HorizontalAlignment="Right"
                         VerticalAlignment="Center">
@@ -129,10 +129,10 @@
                 <Border DockPanel.Dock="Right" Background="{StaticResource AccentTintBrush}" CornerRadius="12"
                         MinWidth="100" Margin="8,0,0,0" Padding="14,10">
                     <StackPanel VerticalAlignment="Center">
-                        <TextBlock x:Name="SheetCountText" Text="—" FontSize="36" FontWeight="Bold"
+                        <TextBlock x:Name="SheetCountText" Text="0" FontSize="36" FontWeight="Bold"
                                    Foreground="#1F457A" HorizontalAlignment="Center"
                                    AutomationProperties.LabeledBy="{Binding ElementName=SheetCountLabel}"/>
-                        <TextBlock x:Name="SheetCountLabel" Text="Листов" FontWeight="SemiBold"
+                        <TextBlock x:Name="SheetCountLabel" Text="листов" FontWeight="SemiBold"
                                    Foreground="#1F457A" HorizontalAlignment="Center"/>
                     </StackPanel>
                 </Border>
@@ -140,53 +140,53 @@
                     <TextBlock Text="Размеры и бумага" FontWeight="SemiBold" FontSize="16" Margin="0,0,0,10"
                                Foreground="{StaticResource TextBrush}"/>
                     <WrapPanel VerticalAlignment="Center">
-                        <StackPanel Margin="0,0,6,0">
+                        <StackPanel Margin="0,0,14,4">
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="Ширина плаката"/>
+                                <TextBlock Text="Ширина"/>
                                 <Border Style="{StaticResource ParameterHelp}" ToolTip="Ширина готового изображения после сборки плаката.">
                                     <TextBlock Style="{StaticResource HelpMark}"/>
                                 </Border>
                             </StackPanel>
-                            <TextBox x:Name="PosterWidthBox" Text="100" Width="105" TextChanged="Settings_Changed"
+                            <TextBox x:Name="PosterWidthBox" Text="100" Width="70" TextChanged="Settings_Changed"
                                      AutomationProperties.Name="Ширина плаката"/>
                         </StackPanel>
-                        <StackPanel Margin="0,0,6,0">
+                        <StackPanel Margin="0,0,14,4">
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="Высота плаката"/>
+                                <TextBlock Text="Высота"/>
                                 <Border Style="{StaticResource ParameterHelp}" ToolTip="Высота готового изображения после сборки плаката.">
                                     <TextBlock Style="{StaticResource HelpMark}"/>
                                 </Border>
                             </StackPanel>
-                            <TextBox x:Name="PosterHeightBox" Text="50" Width="105" TextChanged="Settings_Changed"
+                            <TextBox x:Name="PosterHeightBox" Text="50" Width="70" TextChanged="Settings_Changed"
                                      AutomationProperties.Name="Высота плаката"/>
                         </StackPanel>
-                        <StackPanel Margin="0,0,6,0">
+                        <StackPanel Margin="0,0,14,4">
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="Единицы"/>
+                                <TextBlock Text="Ед. изм."/>
                                 <Border Style="{StaticResource ParameterHelp}" ToolTip="Единицы для размеров плаката, полей и перекрытия. При смене значения пересчитываются.">
                                     <TextBlock Style="{StaticResource HelpMark}"/>
                                 </Border>
                             </StackPanel>
-                            <ComboBox x:Name="UnitsBox" Width="65" SelectionChanged="Units_Changed"
+                            <ComboBox x:Name="UnitsBox" Width="70" SelectionChanged="Units_Changed"
                                       AutomationProperties.Name="Единицы измерения размеров">
                                 <ComboBoxItem Content="см" IsSelected="True"/>
                                 <ComboBoxItem Content="мм"/>
                             </ComboBox>
                         </StackPanel>
-                        <StackPanel Margin="0,0,6,0">
+                        <StackPanel Margin="0,0,14,4">
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="Бумага"/>
                                 <Border Style="{StaticResource ParameterHelp}" ToolTip="Формат каждого листа, на который разбивается плакат.">
                                     <TextBlock Style="{StaticResource HelpMark}"/>
                                 </Border>
                             </StackPanel>
-                            <ComboBox x:Name="PaperBox" Width="75" SelectionChanged="Settings_Changed"
+                            <ComboBox x:Name="PaperBox" Width="70" SelectionChanged="Settings_Changed"
                                       AutomationProperties.Name="Формат бумаги">
                                 <ComboBoxItem Content="A4" IsSelected="True"/>
                                 <ComboBoxItem Content="A3"/>
                             </ComboBox>
                         </StackPanel>
-                        <StackPanel Margin="0,0,6,0">
+                        <StackPanel Margin="0,0,14,4">
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="Ориентация"/>
                                 <Border Style="{StaticResource ParameterHelp}" ToolTip="Положение листа при печати — горизонтальное или вертикальное.">
@@ -207,7 +207,7 @@
                                 </RadioButton>
                             </StackPanel>
                         </StackPanel>
-                        <StackPanel Margin="0,0,6,0">
+                        <StackPanel Margin="0,0,14,4">
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="Поля"/>
                                 <Border Style="{StaticResource ParameterHelp}" ToolTip="Ширина белого отступа у каждого края листа. Стрелки меняют значение на 1 мм.">
@@ -225,7 +225,7 @@
                                 </StackPanel>
                             </StackPanel>
                         </StackPanel>
-                        <StackPanel Margin="0,0,6,0">
+                        <StackPanel Margin="0,0,14,4">
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="Перекрытие"/>
                                 <Border Style="{StaticResource ParameterHelp}" ToolTip="Полоска изображения, которая повторяется на соседних листах для склейки внахлёст. Стрелки меняют значение на 1 мм.">
@@ -233,7 +233,7 @@
                                 </Border>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal" Margin="0,4,0,4">
-                                <TextBox x:Name="OverlapBox" Width="67" Margin="0,0,3,0" Text="0"
+                                <TextBox x:Name="OverlapBox" Width="70" Margin="0,0,3,0" Text="0"
                                          TextChanged="Settings_Changed" AutomationProperties.Name="Перекрытие"/>
                                 <StackPanel>
                                     <RepeatButton Content="▲" Style="{StaticResource SpinButton}" Click="Spin_Click" Margin="0,0,0,2"
@@ -243,22 +243,22 @@
                                 </StackPanel>
                             </StackPanel>
                         </StackPanel>
-                        <StackPanel Margin="0,0,6,0">
+                        <StackPanel Margin="0,0,0,4">
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="Экспорт, DPI"/>
+                                <TextBlock Text="Качество, DPI"/>
                                 <Border Style="{StaticResource ParameterHelp}" ToolTip="Разрешение PNG и PDF. Большее значение даёт больше пикселей и увеличивает размер файлов.">
                                     <TextBlock Style="{StaticResource HelpMark}"/>
                                 </Border>
                             </StackPanel>
-                            <ComboBox x:Name="DpiBox" Width="88" SelectionChanged="Settings_Changed"
-                                      AutomationProperties.Name="Разрешение экспорта, DPI">
+                            <ComboBox x:Name="DpiBox" Width="70" SelectionChanged="Settings_Changed"
+                                      AutomationProperties.Name="Качество, DPI">
                                 <ComboBoxItem Content="150" />
                                 <ComboBoxItem Content="200" />
                                 <ComboBoxItem Content="300" IsSelected="True"/>
                             </ComboBox>
                         </StackPanel>
                     </WrapPanel>
-                    <DockPanel Margin="0,7,0,0">
+                    <DockPanel Margin="0,3,0,0">
                         <StackPanel Orientation="Horizontal" DockPanel.Dock="Left" Margin="0,0,24,0">
                             <CheckBox x:Name="TrimMarksBox" Content="Метки обрезки" IsChecked="True"
                                       VerticalAlignment="Center" Click="Settings_Changed"/>
@@ -279,30 +279,22 @@
         </Border>
 
         <Grid Grid.Row="3">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="2*"/>
-                <ColumnDefinition Width="12"/>
-                <ColumnDefinition Width="*" MinWidth="300"/>
-            </Grid.ColumnDefinitions>
-            <Border Grid.Column="0" Style="{StaticResource Card}" Padding="10">
-                <DockPanel LastChildFill="True">
-                    <TextBlock DockPanel.Dock="Top" x:Name="SelectionInfo" Foreground="#64748B"
-                               HorizontalAlignment="Right" Margin="8,3,8,10" Visibility="Collapsed"/>
-                    <local:PosterPreview x:Name="WholePreview" MouseLeftButtonDown="WholePreview_Click"
-                                         AutomationProperties.Name="Общий плакат"/>
-                </DockPanel>
-            </Border>
-            <Border Grid.Column="2" Style="{StaticResource Card}" Padding="10">
-                <Grid>
-                    <Button x:Name="AddImageButton" Click="Open_Click" Margin="0" Background="#F6F9FE" Cursor="Hand"
-                            AutomationProperties.Name="Добавить изображение">
-                        <StackPanel>
-                            <TextBlock Text="+" FontSize="40" HorizontalAlignment="Center"/>
-                            <TextBlock Text="Добавить изображение" FontSize="16" FontWeight="SemiBold"
-                                       HorizontalAlignment="Center"/>
-                        </StackPanel>
-                    </Button>
-                    <Grid x:Name="OriginalImagePanel" Visibility="Collapsed">
+            <Grid x:Name="ImagePreviews" Visibility="Collapsed">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="12"/>
+                    <ColumnDefinition Width="*" MinWidth="300"/>
+                </Grid.ColumnDefinitions>
+                <Border Grid.Column="0" Style="{StaticResource Card}" Padding="10">
+                    <DockPanel LastChildFill="True">
+                        <TextBlock DockPanel.Dock="Top" x:Name="SelectionInfo" Foreground="#64748B"
+                                   HorizontalAlignment="Right" Margin="8,3,8,10" Visibility="Collapsed"/>
+                        <local:PosterPreview x:Name="WholePreview" MouseLeftButtonDown="WholePreview_Click"
+                                             AutomationProperties.Name="Общий плакат"/>
+                    </DockPanel>
+                </Border>
+                <Border Grid.Column="2" Style="{StaticResource Card}" Padding="10">
+                    <Grid x:Name="OriginalImagePanel">
                         <Border Background="#EBEEF3" CornerRadius="10"/>
                         <Image x:Name="OriginalImagePreview" Stretch="Uniform" Margin="12"
                                AutomationProperties.Name="Исходное изображение"/>
@@ -326,7 +318,17 @@
                             </Button.Style>
                         </Button>
                     </Grid>
-                </Grid>
+                </Border>
+            </Grid>
+            <Border x:Name="AddImagePanel" Style="{StaticResource Card}" Padding="10">
+                <Button Click="Open_Click" Margin="0" Background="#F6F9FE" Cursor="Hand"
+                        AutomationProperties.Name="Добавить изображение">
+                    <StackPanel>
+                        <TextBlock Text="+" FontSize="40" HorizontalAlignment="Center"/>
+                        <TextBlock Text="Добавить изображение" FontSize="16" FontWeight="SemiBold"
+                                   HorizontalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
             </Border>
         </Grid>
 

@@ -13,14 +13,32 @@
             </StackPanel>
         </DockPanel>
         <Border Style="{StaticResource Card}" Margin="20,0" Padding="12">
-            <StackPanel>
-                <TextBlock Text="Функционал: RoadToShawarma"/>
-                <TextBlock Text="Код: Codex"/>
-                <TextBlock Text="UI/UX: RoadToShawarma, Codex"/>
-            </StackPanel>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="8"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <TextBlock Text="Функционал:" TextAlignment="Right"/>
+                <TextBlock Grid.Column="2" Text="RoadToShawarma"/>
+                <TextBlock Grid.Row="1" Text="Код:" TextAlignment="Right"/>
+                <TextBlock Grid.Row="1" Grid.Column="2" Text="Codex"/>
+                <TextBlock Grid.Row="2" Text="UI/UX:" TextAlignment="Right"/>
+                <TextBlock Grid.Row="2" Grid.Column="2" Text="RoadToShawarma, Codex"/>
+                <TextBlock Grid.Row="3" Text="Страница проекта:" TextAlignment="Right"/>
+                <TextBlock Grid.Row="3" Grid.Column="2">
+                    <Hyperlink NavigateUri="https://github.com/RoadToShawarma/Rezak"
+                               RequestNavigate="ProjectLink_RequestNavigate">GitHub</Hyperlink>
+                </TextBlock>
+            </Grid>
         </Border>
-        <TextBlock Text="Разбивает изображение на листы A4 или A3 для печати плаката заданного размера. Поддерживает экспорт в PNG и PDF и печать из программы."
+        <TextBlock Text="Разбивает изображение на листы A4 или A3 для печати плаката заданного размера. Поддерживает экспорт в PNG, PDF, а также печать из программы."
                    TextWrapping="Wrap" Margin="20,16"/>
-        <Button Content="Закрыть" IsCancel="True" HorizontalAlignment="Right" Margin="0,0,20,20"/>
     </StackPanel>
 </Window>

@@ -293,15 +293,17 @@ public partial class MainWindow : Window
             SummaryText.Text = ex.Message;
             StatusText.Text = "Исправьте параметры раскладки";
         }
-        SheetCountText.Text = _layout?.Tiles.Count.ToString(CultureInfo.CurrentCulture) ?? "—";
+        SheetCountText.Text = _image == null
+            ? "0"
+            : _layout?.Tiles.Count.ToString(CultureInfo.CurrentCulture) ?? "—";
         UpdatePreviews();
     }
 
     private void UpdatePreviews()
     {
         bool hasImage = _image != null;
-        AddImageButton.Visibility = hasImage ? Visibility.Collapsed : Visibility.Visible;
-        OriginalImagePanel.Visibility = hasImage ? Visibility.Visible : Visibility.Collapsed;
+        AddImagePanel.Visibility = hasImage ? Visibility.Collapsed : Visibility.Visible;
+        ImagePreviews.Visibility = hasImage ? Visibility.Visible : Visibility.Collapsed;
         OriginalImagePreview.Source = _image;
         ClearButton.IsEnabled = hasImage;
         OutputButtons.IsEnabled = hasImage && _layout != null;
