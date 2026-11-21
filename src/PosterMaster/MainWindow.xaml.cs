@@ -363,10 +363,15 @@ public partial class MainWindow : Window
         if (dialog.ShowDialog(this) != true) return;
         try
         {
-            string destination = dialog.FolderName;
+            string imageName = Path.GetFileName(_imagePath)!;
+            string folderName = Path.GetFileNameWithoutExtension(imageName).TrimEnd(' ', '.');
+            if (folderName.Length == 0)
+                folderName = imageName;
+
+            string destination = Path.Combine(dialog.FolderName, folderName);
             bool replaceExisting = PngExportFolder.HasExistingExport(destination);
             if (replaceExisting && MessageBox.Show(this,
-                    "В выбранной папке уже есть пронумерованные PNG-фрагменты или схема сборки. Заменить эти файлы?",
+                    $"В папке экспорта уже есть пронумерованные PNG-фрагменты или схема сборки. Заменить эти файлы?\n\n{destination}",
                     "Замена PNG-экспорта", MessageBoxButton.YesNo, MessageBoxImage.Warning,
                     MessageBoxResult.No) != MessageBoxResult.Yes)
                 return;
@@ -392,7 +397,8 @@ public partial class MainWindow : Window
                 progress.Report((count + 1, $"Сохранено фрагментов: {count}"));
             });
             StatusText.Text = $"Сохранено фрагментов: {count}";
-            MessageBox.Show(this, "PNG-страницы и схема сборки успешно сохранены.", "Резак");
+            new ExportCompletedWindow("PNG сохранены",
+                "Фрагменты и схема сборки сохранены в папке:", destination) { Owner = this }.ShowDialog();
         }
         catch (Exception ex) { ShowError("Ошибка экспорта PNG", ex); }
     }
@@ -437,8 +443,9 @@ public partial class MainWindow : Window
                 PdfExporter.Save(path, layout, source, dpi, trimMarks,
                     (current, all) => progress.Report((current, $"PDF: сохранено {current}/{all}"))));
             StatusText.Text = "PDF сохранён";
-            MessageBox.Show(this, "PDF сохранён. Схема раскроя на первой странице. Печатайте фрагменты со второй страницы в масштабе 100%.",
-                "Резак", MessageBoxButton.OK, MessageBoxImage.Information);
+            new ExportCompletedWindow("PDF сохранён",
+                "Схема раскроя на первой странице.\nДля сохранения точных размеров печатайте фрагменты в масштабе 100%.",
+                path) { Owner = this }.ShowDialog();
         }
         catch (Exception ex) { ShowError("Не удалось сохранить PDF", ex); }
     }
